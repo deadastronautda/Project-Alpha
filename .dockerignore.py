@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.git
+.gitignore
+venv/
+.env
+*.log
+*.sqlite
+*.sqlite3
+*.h5
+*.pickle
+*.joblib
+data/
