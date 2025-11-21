@@ -2,7 +2,6 @@ import pytest
 import pandas as pd
 import numpy as np
 from io import BytesIO
-from openpyxl import Workbook
 
 @pytest.fixture
 def sample_financial_data():
@@ -35,8 +34,6 @@ def mock_excel_file():
     
     for row in test_
         ws.append(row)
-    
-    # Сохраняем в буфер
     buffer = BytesIO()
     wb.save(buffer)
     buffer.seek(0)
