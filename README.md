@@ -2,7 +2,6 @@
 =======
 🌍 English version: [README.en.md](README.en.md)
 
->>>>>>> qa_dev
 # 📊 Project Alpha — Анализатор финансовой отчётности
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
