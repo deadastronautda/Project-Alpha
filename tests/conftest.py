@@ -32,7 +32,7 @@ def mock_excel_file():
         ['Чистая прибыль (убыток)', 'Ф2.2400', 'тыс. руб.', '1000000', '1500000', '2000000']
     ]
     
-    for row in test_
+    for row in test_data:
         ws.append(row)
     buffer = BytesIO()
     wb.save(buffer)
