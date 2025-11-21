@@ -227,8 +227,6 @@ You’ll see “Run Tests” workflow with logs, coverage, and error traces.
 
 # 📷 Screenshots (example)
 
-*(Replace with your own images if needed)*
-
 ### Dashboard
 
 ![screenshot](https://via.placeholder.com/900x400?text=Main+Dashboard)
