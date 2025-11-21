@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from io import BytesIO
-from app import clean_value, detect_financial_table_start, extract_years, load_financial_report
+from app import *
 
 def test_clean_value():
     """Тестирует очистку числовых значений"""
