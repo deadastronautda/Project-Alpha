@@ -3,14 +3,14 @@ git add .
 
 Write-Output "📝 Создание коммита..."
 $commitMessage = "Streamlit-приложение для анализа финансовой отчетности"
-git commit -m $commitMessage --no-verify
+git commit -m Добавлены исправления и улучшения --no-verify
 
 Write-Output "🚀 Отправка в GitHub..."
-git push origin qa_dev
+git push origin main
 
 if ($LASTEXITCODE -ne 0) {
     Write-Output "❌ Ошибка при отправке. Пробуем принудительно..."
-    git push --force origin qa_dev
+    git push --force origin main
 }
 
 Write-Output "✅ Готово! Проверяйте репозиторий на GitHub"
