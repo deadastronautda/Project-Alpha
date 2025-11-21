@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 🌍 English version: [README.en.md](README.en.md)
 
 # 📊 Project Alpha — Анализатор финансовой отчётности
