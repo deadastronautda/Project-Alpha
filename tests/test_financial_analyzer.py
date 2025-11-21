@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import numpy as np
-from app import calculate_financial_ratios, get_indicator_value
+from tests.financial_analyzer import calculate_financial_ratios, get_indicator_value
 
 def test_get_indicator_value(sample_financial_data):
     """Тестирует получение значения показателя"""

@@ -2,14 +2,9 @@ import pytest
 import pandas as pd
 from pathlib import Path
 
-from app import (
-    load_data,
-    preprocess_data,
-    calculate_financial_ratios,
-    perform_horizontal_analysis,
-    perform_vertical_analysis,
-    detect_anomalies
-)
+from tests.data_loader import load_data, preprocess_data
+from tests.financial_analyzer import calculate_financial_ratios
+from tests.anomaly_detector import detect_anomalies
 
 @pytest.fixture(scope="session")
 def excel_path():
