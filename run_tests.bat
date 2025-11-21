@@ -1,6 +1,6 @@
 @echo off
-echo 🧪 Запуск тестов...
-call venv\Scripts\activate.bat
-pytest --verbose tests/
-echo 📊 Тесты завершены
+call venv\Scripts\activate
+
+pytest --maxfail=1 --disable-warnings --cov=app --cov-report=term-missing
+
 pause
