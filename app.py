@@ -467,31 +467,32 @@ def plot_anomaly_visualization(df, anomalies):
 
 def generate_pdf_report(df, ratios, horizontal_df, vertical_asset_df, vertical_liability_df, anomalies):
     """Генерирует PDF-отчет с результатами анализа"""
-    from fpdf import FPDF
+    from fpdf import FPDF, XPos, YPos
     
     class PDF(FPDF):
         def header(self):
-            self.set_font('Arial', 'B', 12)
-            self.cell(0, 10, 'Финансовый анализ ООО "Агрисовгаз"', 0, 1, 'C')
+            # Устанавливаем шрифт с поддержкой кириллицы
+            self.set_font("DejaVu", 'B', 12)
+            self.cell(0, 10, 'Финансовый анализ ООО "Агрисовгаз"', 0, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='C')
             self.ln(5)
         
         def footer(self):
             self.set_y(-15)
-            self.set_font('Arial', 'I', 8)
-            self.cell(0, 10, f'Страница {self.page_no()}', 0, 0, 'C')
+            self.set_font("DejaVu", 'I', 8)
+            self.cell(0, 10, f'Страница {self.page_no()}', 0, new_x=XPos.LMARGIN, new_y=YPos.TOP, align='C')
         
         def chapter_title(self, title):
-            self.set_font('Arial', 'B', 14)
-            self.cell(0, 10, title, 0, 1, 'L')
+            self.set_font("DejaVu", 'B', 14)
+            self.cell(0, 10, title, 0, new_x=XPos.LMARGIN, new_y=YPos.NEXT, align='L')
             self.ln(4)
         
         def chapter_body(self, body):
-            self.set_font('Arial', '', 12)
+            self.set_font("DejaVu", '', 12)
             self.multi_cell(0, 6, body)
             self.ln()
         
         def add_table(self, header, data):
-            self.set_font('Arial', 'B', 10)
+            self.set_font("DejaVu", 'B', 10)
             col_width = self.w / (len(header) + 1)
             
             # Заголовки
@@ -500,13 +501,31 @@ def generate_pdf_report(df, ratios, horizontal_df, vertical_asset_df, vertical_l
             self.ln()
             
             # Данные
-            self.set_font('Arial', '', 10)
+            self.set_font("DejaVu", '', 10)
             for row in data:
                 for item in row:
                     self.cell(col_width, 8, str(item), border=1)
                 self.ln()
-    
+
+    # Создаем объект PDF
     pdf = PDF()
+    
+    # Добавляем шрифт с поддержкой кириллицы
+    try:
+        # Попробуем использовать системный шрифт
+        pdf.add_font("DejaVu", "", "DejaVuSansCondensed.ttf", uni=True)
+        pdf.add_font("DejaVu", "B", "DejaVuSansCondensed-Bold.ttf", uni=True)
+        pdf.add_font("DejaVu", "I", "DejaVuSansCondensed-Oblique.ttf", uni=True)
+    except:
+        # Если системных шрифтов нет, используем встроенные шрифты с поддержкой кириллицы
+        try:
+            pdf.add_font("DejaVu", "", "C:\\Windows\\Fonts\\arial.ttf", uni=True)
+            pdf.add_font("DejaVu", "B", "C:\\Windows\\Fonts\\arialbd.ttf", uni=True)
+            pdf.add_font("DejaVu", "I", "C:\\Windows\\Fonts\\ariali.ttf", uni=True)
+        except:
+            # Если ничего не сработало, используем стандартный шрифт
+            pdf.set_auto_page_break(auto=True, margin=15)
+    
     pdf.add_page()
     
     # Введение
@@ -554,7 +573,7 @@ def generate_pdf_report(df, ratios, horizontal_df, vertical_asset_df, vertical_l
                 f"{anomaly['value']:.0f}",
                 anomaly['type'],
                 anomaly['severity'].upper(),
-                anomaly['description']
+                anomaly['description'][:50] + "..." if len(anomaly['description']) > 50 else anomaly['description']
             ])
         
         pdf.add_table(['Показатель', 'Год', 'Значение', 'Тип', 'Важность', 'Описание'], anomaly_data)
@@ -588,8 +607,7 @@ def generate_pdf_report(df, ratios, horizontal_df, vertical_asset_df, vertical_l
     
     # Сохраняем PDF в буфер
     pdf_output = BytesIO()
-    pdf_content = pdf.output(dest='S').encode('latin1')
-    pdf_output.write(pdf_content)
+    pdf.output(pdf_output)
     pdf_output.seek(0)
     
     return pdf_output

@@ -20,12 +20,11 @@ def sample_financial_data():
 def mock_excel_file():
     """Создает mock Excel файл для тестов"""
     from openpyxl import Workbook
-    from openpyxl.utils.dataframe import dataframe_to_rows
     
     wb = Workbook()
     ws = wb.active
     
-    # Создаем тестовые данные
+    # Создаем тестовые данные в формате отчетности
     test_data = [
         ['Показатель', 'Код', 'Ед.изм.', '2020', '2021', '2022'],
         ['Выручка', 'Ф2.2110', 'тыс. руб.', '5000000', '6000000', '7000000'],
