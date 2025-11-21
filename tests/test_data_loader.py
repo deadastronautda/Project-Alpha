@@ -14,7 +14,7 @@ def test_clean_value():
     assert clean_value("123.45") == 123.45
     assert clean_value("123,45") == 123.45
 
-def test_detect_financial_table_start(sample_financial_data):
+def test_detect_financial_table_start():
     """Тестирует определение начала финансовой отчетности"""
     # Создаем mock DataFrame с заголовками
     df_mock = pd.DataFrame({

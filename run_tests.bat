@@ -1,10 +1,7 @@
 @echo off
-call venv\Scripts\activate
-
-echo Установка пакета в editable-режиме...
-pip install -e . --quiet
-
-echo Запуск тестов...
-pytest --maxfail=1 --disable-warnings --cov=app --cov-report=term-missing
-
+echo 🧪 Запуск тестов...
+call venv\Scripts\activate.bat
+pip install -r requirements.txt -r requirements-test.txt
+pytest --verbose tests/
+echo 📊 Тесты завершены
 pause
